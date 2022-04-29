@@ -23,7 +23,7 @@ const LoginPage = () => {
     <Login onSubmit={onSubmit} onChange={onChange}/>
   );
 };
-const mapStateToProps = state => ({isLoggined:state.signin.isLoggined})
+const mapStateToProps = state => ({isLoggined:state.login.isLoggined})
 const loginActions = {loginRequest, loginCancelled,logoutRequest}
 export default connect(mapStateToProps,loginActions)(LoginPage)
 
