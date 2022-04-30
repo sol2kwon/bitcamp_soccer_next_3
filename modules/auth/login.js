@@ -19,18 +19,18 @@ const LOGIN_REQUEST = 'auth/LOGIN_REQUEST';
 const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
 const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
 const LOGIN_CANCELLED = 'auth/LOGIN_CANCELLED';
-const LOGOUT_REQUEST = 'auth/LOGOUT_REQUEST';
+//const LOGOUT_REQUEST = 'auth/LOGOUT_REQUEST';
 const SAVE_TOKEN = 'auth/SAVE_TOKEN';
 const DELETE_TOKEN = 'auth/DELETE_TOKEN';
 
 export const loginRequest = createAction(LOGIN_REQUEST, data => data)
 export const loginCancelled = createAction(LOGIN_CANCELLED, data => data)
-export const logoutRequest = createAction(LOGOUT_REQUEST, data => data)
+//export const logoutRequest = createAction(LOGOUT_REQUEST, data => data)
 
 export function* loginSaga() {
     yield takeLatest(LOGIN_REQUEST, signin);
     yield takeLatest(LOGIN_CANCELLED, loginCancelledService);
-    yield takeLatest(LOGOUT_REQUEST, logoutService);
+   // yield takeLatest(LOGOUT_REQUEST, logoutService);
 
 }
 
@@ -53,6 +53,7 @@ function* loginCancelledService(action) {
         
     }
 }
+/*** 
 function* logoutService(action) {
     try {
         yield put(window.location.href="/")
@@ -60,6 +61,7 @@ function* logoutService(action) {
         
     }
 }
+*/
 
 const loginAPI = payload => axios.post(
     `${SERVER}/user/login`,

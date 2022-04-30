@@ -12,6 +12,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { createSvgIcon } from '@mui/material/utils';
 import {useSelector} from "react-redux"
+import {logoutRequest} from '@/modules/auth/login'
+
+
 
 const HomeIcon = createSvgIcon(
   <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />,
@@ -47,14 +50,15 @@ export function Nav(){
  
   useEffect(() => {
     if (!isLoggined) {
-      setUserUrls({subTitles: ['회원가입', '로그인'], urls: ["/auth/register","/auth/login"]})
+      setUserUrls({subTitles: ['회원가입', '로그인','로그아웃'], urls: ["/auth/register","/auth/login","/auth/logout"]})
       setImageInfos({imageUrl: 'https://as2.ftcdn.net/v2/jpg/01/85/61/65/1000_F_185616556_uCc1J5d5GNfRH6ErgP1G8x8ORLeG25en.jpg', imageTitle: 'sign'})
     } else {
       setUserUrls({subTitles: ["프로필", "정보수정", "로그아웃" , "회원탈퇴"], urls: ["/auth/profile", "/auth/modifyUser", "/auth/logout", "/auth/delUser"]})
       setImageInfos({imageUrl: 'https://www.w3schools.com/howto/img_avatar.png', imageTitle: 'users'})
     }
   }, [])
-  
+
+ 
   return (
     <AppBar position="static" style={{marginBottom:"20px"}}>
       <Container maxWidth="xl">
@@ -93,6 +97,7 @@ export function Nav(){
                   <a href={urls}><Typography textAlign="center" onClick={handleCloseUserMenu}>{userUrls.subTitles[i]}</Typography></a>
                 </MenuItem> ))}
             </Menu>
+
           </Box>
         </Toolbar>
       </Container>
