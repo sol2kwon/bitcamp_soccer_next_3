@@ -1,10 +1,10 @@
-import { Layout,Table,Pagination,Modal } from "@/components";
+import { Home } from "@/components";
 import React, {useEffect} from "react"
 import tableStyles from "@/styles/Table.module.css"
 
 
-export default function Home(){
-    useEffect(() => {
+export default function HomePage(){
+   /**  useEffect(() => {
         const loginUser = localStorage.getItem("loginUser")
         const user = JSON.parse(loginUser)
         if (loginUser === null) {
@@ -22,23 +22,9 @@ export default function Home(){
                 .innerHTML = '<h1>환영합니다: ' + user.name + '<h1>'
         }
     }, []);
+    */
     return(
-        <table className={tableStyles.table}>
-        <thead>
-            <tr>
-                <th>
-                    <h2>HOME</h2>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr >
-                <td>
-                    <div id="timeZone">현재시간</div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+      <Home/>
 )
     
 }

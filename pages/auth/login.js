@@ -1,30 +1,29 @@
 import React, {useState} from 'react';
-import { connect, useDispatch } from 'react-redux';
-import { loginRequest,loginCancelled,logoutRequest } from '@/modules/auth/login';
-import { Login } from '@/components/auth/Login';
+import {connect, useDispatch} from 'react-redux';
+import {loginRequest} from '@/modules/auth/login';
+import {Login} from '@/components';
+import { useRouter } from 'next/router';
 
-const LoginPage = () => {
-  const [login, setLogin] = useState(
-    { userid:'', password:''}
-  )
-  const dispatch = useDispatch()
-  const onChange = e =>{
-    e.preventDefault()
-    const{name,value} = e.target;
-    setLogin({...login,[name]:value})
-  }
-  const onSubmit = e =>{
-    e.preventDefault()
-    alert('로그인 정보: '+JSON.stringify(login))
-    dispatch(loginRequest(login))
-    window.location.href='/'
-  }
-  return (
-    <Login onSubmit={onSubmit} onChange={onChange}/>
-  );
+const LoginPage = ({}) => {
+    const [user, setUser] = useState({userid: '', password: ''})
+    const dispatch = useDispatch()
+    const router = useRouter()
+    const onChange = e => {
+        e.preventDefault()
+        const {name, value} = e.target;
+        setUser({
+            ...user,
+            [name]: value
+        })
+    }
+    const onSubmit = e => {
+        e.preventDefault()
+        alert(`로그인 정보 ${JSON.stringify(user)}`)
+        dispatch(loginRequest(user))
+        router.push('/user')
+    }
+    return (<Login onChange={onChange} onSubmit={onSubmit}/>);
 };
-const mapStateToProps = state => ({isLoggined:state.login.isLoggined})
-const loginActions = {loginRequest, loginCancelled,logoutRequest}
-export default connect(mapStateToProps,loginActions)(LoginPage)
-
-
+const mapStateToProps = state => ({loginUser: state.login.loginUser})
+const loginActions = {loginRequest}
+export default connect(mapStateToProps, loginActions)(LoginPage);

@@ -11,9 +11,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { createSvgIcon } from '@mui/material/utils';
-import {useSelector} from "react-redux"
-import {logoutRequest} from '@/modules/auth/login'
-
+import { useSelector } from 'react-redux';
 
 
 const HomeIcon = createSvgIcon(
@@ -45,20 +43,19 @@ export function Nav(){
     setAnchorElUser(null);
   };
 
-  //const loginUser = useSelector(state => state.login.loginUser)
-  const isLoggined = useSelector(state => state.login.isLoggined)
- 
+  const loginUser = useSelector( (state) => state.login.loginUser)
+  const isLoggined = useSelector( (state) => state.login.isLoggined)
+
   useEffect(() => {
     if (!isLoggined) {
-      setUserUrls({subTitles: ['회원가입', '로그인','로그아웃'], urls: ["/auth/register","/auth/login","/auth/logout"]})
+      setUserUrls({subTitles: ['회원가입', '로그인'], urls: ["/auth/register","/auth/login"]})
       setImageInfos({imageUrl: 'https://as2.ftcdn.net/v2/jpg/01/85/61/65/1000_F_185616556_uCc1J5d5GNfRH6ErgP1G8x8ORLeG25en.jpg', imageTitle: 'sign'})
     } else {
-      setUserUrls({subTitles: ["프로필", "정보수정", "로그아웃" , "회원탈퇴"], urls: ["/auth/profile", "/auth/modifyUser", "/auth/logout", "/auth/delUser"]})
+      setUserUrls({subTitles: ["프로필", "정보수정", "로그아웃" , "회원탈퇴"], urls: ["/user/profile", "/user/modifyUser", "/user/logout", "/user/delUser"]})
       setImageInfos({imageUrl: 'https://www.w3schools.com/howto/img_avatar.png', imageTitle: 'users'})
     }
   }, [])
-
- 
+  
   return (
     <AppBar position="static" style={{marginBottom:"20px"}}>
       <Container maxWidth="xl">
@@ -76,7 +73,6 @@ export function Nav(){
               </a>))}
           </Box>
           
-
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title={imageInfos.imageTitle}>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -97,7 +93,6 @@ export function Nav(){
                   <a href={urls}><Typography textAlign="center" onClick={handleCloseUserMenu}>{userUrls.subTitles[i]}</Typography></a>
                 </MenuItem> ))}
             </Menu>
-
           </Box>
         </Toolbar>
       </Container>
