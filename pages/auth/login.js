@@ -1,29 +1,24 @@
-import React, {useState} from 'react';
-import {connect, useDispatch} from 'react-redux';
-import {loginRequest} from '@/modules/auth/login';
-import {Login} from '@/components';
-import { useRouter } from 'next/router';
+import { combineReducers } from 'redux';
+import { all } from 'redux-saga/effects';
+import counter, { counterSaga } from './basic/counter';
+import register, { registerSaga } from './auth/register';
+import login, { loginSaga } from './auth/login';
+import {HYDRATE} from "next-redux-wrapper"
+const rootReducer = combineReducers({
+    index: (state = {}, action) => {
+        switch (action.type) {
+            case HYDRATE:
+                console.log("HYDRATE", action);
+                return { ...state, ...action.payload };
+            default:
+                return state;
+        }
+    },
+    login,
+    register,
+});
+export function* rootSaga() {
+  yield all([counterSaga(), registerSaga(), loginSaga()]);
+}
 
-const LoginPage = ({}) => {
-    const [user, setUser] = useState({userid: '', password: ''})
-    const dispatch = useDispatch()
-    const router = useRouter()
-    const onChange = e => {
-        e.preventDefault()
-        const {name, value} = e.target;
-        setUser({
-            ...user,
-            [name]: value
-        })
-    }
-    const onSubmit = e => {
-        e.preventDefault()
-        alert(`로그인 정보 ${JSON.stringify(user)}`)
-        dispatch(loginRequest(user))
-        router.push('/user')
-    }
-    return (<Login onChange={onChange} onSubmit={onSubmit}/>);
-};
-const mapStateToProps = state => ({loginUser: state.login.loginUser})
-const loginActions = {loginRequest}
-export default connect(mapStateToProps, loginActions)(LoginPage);
+export default rootReducer;

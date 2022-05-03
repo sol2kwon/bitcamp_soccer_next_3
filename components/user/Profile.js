@@ -73,7 +73,7 @@ export function Profile({loginUser}) {
                                     width: "100%"
                                 }}/>
                             <h1>
-                           {loginUser.name}
+                            {loginUser.name}
                             </h1>
                             <p className="title">CEO & Founder, Example</p>
                             <p>이메일 : {loginUser.email}</p>
