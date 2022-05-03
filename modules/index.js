@@ -14,6 +14,7 @@ const rootReducer = combineReducers({
                 return state;
         }
     },
+    counter,
     login,
     register,
 });
