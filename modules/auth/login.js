@@ -47,12 +47,14 @@ export function* loginSaga() {
 function* signin(action) {
     try {
         const response = yield call(loginAPI, action.payload)
-        const result = response
-            .data
-            console.log(" 로그인 서버다녀옴: " + JSON.stringify(result))
-        yield put({type: LOGIN_SUCCESS, payload: result})
-        yield put({type: SAVE_TOKEN, payload: result.token})
-        
+        const result = response.data
+        if(result.token !=="FAILURE"){
+            console.log(" 로그인 성공: " + JSON.stringify(result))
+            yield put({type: LOGIN_SUCCESS, payload: result})
+            yield put({type: SAVE_TOKEN, payload: result.token})
+        }else{
+            console.log("로그인 실패:"+JSON.stringify(result))
+        }
     } catch (error) {
         yield put({type: LOGIN_FAILURE, payload: error.message})
     }
