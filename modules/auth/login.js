@@ -12,7 +12,7 @@ import axios from 'axios'
 import { createBrowserHistory } from 'history'
 
 
-const SERVER = 'http://127.0.0.1:5000'
+const SERVER = 'http://127.0.0.1:8080'
 const headers = {
     "Content-Type": "application/json",
     Authorization: "JWT fefege...",
@@ -58,7 +58,7 @@ function* signin(action) {
     }
 }
 const loginAPI = payload => axios.post(
-    `${SERVER}/user/login`,
+    `${SERVER}/users/login`,
     payload,
     {headers}
 )
@@ -77,7 +77,7 @@ function* logout(){
     }
 }
 const logoutAPI = () => axios.get(
-    `${SERVER}/user/logout`,
+    `${SERVER}/users/logout`,
     {},
     {headers}
 )
